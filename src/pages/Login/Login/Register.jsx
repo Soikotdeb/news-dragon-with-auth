@@ -3,6 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import { useState } from 'react';
+import './register.css'
 
 
 const Register = () => {
@@ -42,12 +43,15 @@ createUser(email,password)
 
 
     return (
-      <Container className='mx-auto w-35 mt-5' style={{border: '1px solid blue', borderRadius: '10px', height: '600px', padding:'50px', marginTop:'30px', backgroundColor: 'lightgray', width: '30%', backgroundImage: 'url("https://wallpaperaccess.com/full/1858883.jpg")', backgroundSize: 'cover'}}>
+      <Container className='mx-auto mt-5' style={{border: '1px solid blue', borderRadius: '10px', height: '600px', padding:'50px', marginTop:'30px', backgroundColor: 'lightgray', maxWidth: '500px', width: '100%', backgroundImage: 'url("https://wallpaperaccess.com/full/1858883.jpg")', backgroundSize: 'cover'}}>
+
         <h2 className='fw-bold text-secondary'>Please LogIn</h2>
-       <Form onSubmit={handleRegister}>
+       <Form onSubmit={handleRegister} style={{margin: '20px'}}>
+
   <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label className='fw-bold text-secondary'>Name</Form.Label>
-    <Form.Control type="text" name='name' placeholder="Enter Name"  required/>
+    <Form.Label className='fw-bold text-secondary' style={{fontSize: '1rem'}}>Name</Form.Label>
+<Form.Control type="text" name='name' placeholder="Enter Name" style={{fontSize: '0.9rem'}} required/>
+
   
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -74,7 +78,8 @@ createUser(email,password)
   </Form.Group>
 
  
-  <Button variant="primary" disabled={!accepted} type="submit">  Register </Button>
+  <Button variant="primary" disabled={!accepted} type="submit" style={{padding: '5px 10px', fontSize: '0.9rem'}}>Register</Button>
+
   <br />
   
   <Form.Text className="text-secondary fw-bold">
