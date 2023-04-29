@@ -1,0 +1,17 @@
+
+
+.align{
+font-size: 35px;
+line-height: 30px;
+border: 1px solid rgb(237, 225, 225);
+padding: 10px;
+background-color: #E7E7E7;
+border-radius: 3px;
+}
+.type{
+    padding: 10px;
+    font-size: 20px;
+line-height: 10px;
+font-weight: bold;
+color:#9F9F9F ;
+}

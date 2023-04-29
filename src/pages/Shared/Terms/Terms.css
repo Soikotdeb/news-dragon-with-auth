@@ -1,0 +1,114 @@
+
+
+.terms-and-conditions {
+    background-color: #f5f5f5;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="70" font-family="Arial">🕺</text></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    position: relative;
+    border-radius: 10px;
+    animation: shake 7s infinite;
+  }
+ 
+  .terms-and-conditions::before {
+    content: "😃";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+  }
+  .terms-and-conditions::after {
+    content: "😃";
+    position: absolute;
+    top: -10px;
+    right: -10px;
+  }
+  .terms-and-conditions section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-out;
+  }
+
+ .terms-and-conditions section:hover {
+  transform: translateY(-5px);
+}
+  
+
+  .terms-and-conditions a:hover {
+    color: #fff;
+    background-color: #000;
+  }
+  .terms-and-conditions h2 {
+    margin-top: 0;
+  }
+  
+
+.terms-and-conditions {
+    margin: 50px auto;
+    max-width: 800px;
+  }
+  
+  section {
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  p {
+    color: #666;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
+  /* Animation */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(10deg);
+    }
+    40% {
+      transform: rotate(-10deg);
+    }
+    60% {
+      transform: rotate(5deg);
+    }
+    80% {
+      transform: rotate(-5deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  section {
+    animation: fade-in 0.5s ease-in-out;
+  }
+  
