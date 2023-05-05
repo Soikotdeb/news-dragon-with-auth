@@ -5,10 +5,13 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import './Login.css'
 import { useState } from 'react';
+import useTitle from '../../../hooks/useTitle';
+
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+useTitle('login')
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -16,6 +19,7 @@ const Login = () => {
   const {signIn}=useContext(AuthContext)
   const navigate = useNavigate()
   const location= useLocation();
+
   const from = location.state?.from?.pathname || '/';
 
   const handleLogIn = event =>{

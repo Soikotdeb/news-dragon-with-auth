@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import { useState } from 'react';
 import './register.css'
+import useTitle from '../../../hooks/useTitle';
+
 
 
 const Register = () => {
   const {createUser}=useContext(AuthContext);
 const [accepted,setAccepted]=useState(false)
 const [showPassword, setShowPassword] = useState(false);
-
+useTitle('Register')
 const togglePasswordVisibility = () => {
   setShowPassword(!showPassword);
 };

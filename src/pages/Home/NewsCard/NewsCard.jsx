@@ -2,12 +2,50 @@ import moment from "moment";
 import React from "react";
 import { Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaEye, FaRegBookmark, FaRegStar, FaShareAlt, FaStar } from "react-icons/fa";
+import {
+  FaBookmark,
+  FaEye,
+  FaRegBookmark,
+  FaRegStar,
+  FaShareAlt,
+  FaStar,
+} from "react-icons/fa";
 import Rating from "react-rating";
 import { useState } from "react";
 import { useEffect } from "react";
+import LikeButton from "./LikedButton/LikeButton";
+import { FaWhatsapp } from "react-icons/fa";
+import { useRef } from "react";
 
 const NewsCard = ({ news }) => {
+  const [isShareActive, setIsShareActive] = useState(false);
+  const [is_bookmarked, setIsBookmarked] = useState(false);
+
+  const toggleShare = () => {
+    setIsShareActive(!isShareActive);
+  };
+  const toggleBookmark = () => {
+    const { _id } = news; // add this line to destructure _id from news
+    setIsBookmarked(!is_bookmarked);
+    localStorage.setItem(`news_${_id}_bookmark`, !is_bookmarked);
+    // Send a request to the server to update the bookmark status of the news in the database
+  };
+  useEffect(() => {
+    const { _id } = news;
+    const bookmarkKey = `news_${_id}_bookmark`;
+    const savedBookmark = localStorage.getItem(bookmarkKey);
+    const initialBookmarkStatus = savedBookmark
+      ? JSON.parse(savedBookmark)
+      : false;
+    setIsBookmarked(initialBookmarkStatus);
+  }, [news]);
+
+  const shareViaWhatsapp = () => {
+    const shareUrl = `whatsapp://send?text=${encodeURIComponent(
+      window.location.href
+    )}`;
+    window.location.href = shareUrl;
+  };
 
   const {
     _id,
@@ -29,10 +67,27 @@ const NewsCard = ({ news }) => {
             <small>{moment(author?.published_date).format("yyy-MM-D")}</small>
           </p>
         </div>
-
-        <div className="text-secondary p-3">
-       <span className="me-3"><FaRegBookmark /></span>
-          <FaShareAlt />
+        <div className="text-secondary p-3 d-flex">
+          <Link className="me-3" onClick={toggleBookmark}>
+            {is_bookmarked ? <FaBookmark /> : <FaRegBookmark />}
+          </Link>
+          <div className="position-relative">
+            <Link>
+              <FaShareAlt onClick={toggleShare} />
+            </Link>
+            {isShareActive && (
+              <Link className="position-absolute bg-white p-3 rounded">
+                <Link
+                  className="fw-bold text-decoration-none"
+                  onClick={shareViaWhatsapp}
+                >
+                  <span className="d-flex  align-items-center">
+                    <FaWhatsapp /> WhatsApp
+                  </span>
+                </Link>
+              </Link>
+            )}
+          </div>
         </div>
       </Card.Header>
 
@@ -46,30 +101,35 @@ const NewsCard = ({ news }) => {
             <>
               {" "}
               {details.slice(0, 250)}...
-              <Link className="fw-bold text-danger text-decoration-none" to={`/news/${_id}`}>Read More</Link>
+              <Link
+                className="fw-bold text-danger text-decoration-none"
+                to={`/news/${_id}`}
+              >
+                Read More
+              </Link>
             </>
           )}
         </Card.Text>
       </Card.Body>
-      <Card.Footer className="text-muted d-flex">
-        <div className="flex-grow-1 fw-bold">
-            <Rating 
+      <Card.Footer className="d-flex justify-content-between align-items-center text-muted">
+        <div className="fw-bold">
+          <Rating
             className="text-danger"
-              placeholderRating={rating.number}
-            //   readonly
-              emptySymbol={<FaRegStar></FaRegStar>}
-              placeholderSymbol={<FaStar className="text-warning"></FaStar>}
-              fullSymbol={<FaStar></FaStar>}
-            
-            
-            ></Rating>
-            <span>{rating?.number}</span>
+            placeholderRating={rating.number}
+            emptySymbol={<FaRegStar />}
+            placeholderSymbol={<FaStar className="text-warning" />}
+            fullSymbol={<FaStar />}
+          />
+          <span className="ms-2  fw-bold ">{rating?.number}</span>
         </div>
-      
+
+        <div className="d-flex align-items-center">
+          <FaEye className="me-2" />
+          <span>{total_view}</span>
+        </div>
 
         <div>
-          <FaEye></FaEye>
-          {total_view}
+          <LikeButton />
         </div>
       </Card.Footer>
     </Card>
